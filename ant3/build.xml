@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<project name="main" default="build" basedir="." >
+	<property file="all.properties" />
+	
+	<target name="init">
+		<mkdir dir="${bin}" />
+	</target>
+	
+	<target name="run">
+		<ant dir="${src1}" target="run" />
+		<ant dir="${src2}" target="run" />
+		<ant dir="${src3}" target="run" />
+	</target>
+	
+	<target name="clean">
+		<ant dir="${src1}" target="clean" />
+		<ant dir="${src2}" target="clean" />
+		<ant dir="${src3}" target="clean" />
+	</target>
+	
+	<target name="call">
+		<ant dir="${src1}" target="build" />
+		<ant dir="${src2}" target="build" />
+		<ant dir="${src3}" target="build" />
+	</target>
+	
+	<target name="build" depends="init,call">
+		<copy todir="${bin}">
+			<fileset dir="${src1}" >
+				<include name="*.jar" />
+			</fileset>
+			<fileset dir="${src2}" >
+				<include name="*.jar" />
+			</fileset>
+			<fileset dir="${src3}" >
+				<include name="*.jar" />
+			</fileset>
+		</copy>
+	</target>
+	
+	<target name="rebuild" depends="build,clean">
+		<ant target="clean" />
+		<ant target="build" />
+	</target>
+	
+	<target name="test">
+		<ant dir="${src1}" target="test" />
+		<ant dir="${src2}" target="test" />
+		<ant dir="${src3}" target="test" />
+	</target>
+
+</project>

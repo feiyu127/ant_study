@@ -1,0 +1,21 @@
+
+clean:
+   [delete] Deleting directory F:\study\ant\antTest\ROOT
+
+init:
+    [mkdir] Created dir: F:\study\ant\antTest\ROOT
+    [mkdir] Created dir: F:\study\ant\antTest\ROOT\WEB-INF\classes
+
+compile:
+    [javac] Compiling 780 source files to F:\study\ant\antTest\ROOT\WEB-INF\classes
+    [javac] 注: 某些输入文件使用或覆盖了已过时的 API。
+    [javac] 注: 有关详细信息, 请使用 -Xlint:deprecation 重新编译。
+    [javac] 注: 某些输入文件使用了未经检查或不安全的操作。
+    [javac] 注: 有关详细信息, 请使用 -Xlint:unchecked 重新编译。
+
+build:
+     [copy] Copying 757 files to F:\study\ant\antTest\ROOT
+     [copy] Copied 146 empty directories to 2 empty directories under F:\study\ant\antTest\ROOT
+
+BUILD SUCCESSFUL
+Total time: 32 seconds

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<project name="main" default="compile" basedir="." >
+	<property file="all.properties" />
+	<property environment="SystemVariable" />
+	<path id="main_java_path" >
+		<fileset dir="${webContent_path}/WEB-INF/lib">
+			<include name="**/*.jar"/>
+			<exclude name="**/hibernate-validator-annotation-processor-5.2.0.CR1.jar" />
+		</fileset>
+		<fileset dir="${tomcat_lib}">
+			<include name="**/*.jar"/>
+		</fileset>
+		<fileset dir="${local_lib}">
+			<include name="**/*.jar"/>
+		</fileset>
+		<fileset dir="C:/Java/jdk1.7.0_79/jre/lib">
+			<include name="**/rt.jar"/>
+		</fileset>
+	</path>
+	
+	<target name="init">
+		<mkdir dir="${basedir}/${relative_dest}" />
+	</target>
+	<target name="clean">
+		<delete dir="${basedir}/${relative_dest}" />
+		<ant target="init" />
+		<mkdir dir="${basedir}/${relative_dest}/WEB-INF/classes" />
+	</target>
+	
+	<target name="compile" depends="clean">
+		<javac destdir="${basedir}/${relative_dest}/WEB-INF/classes" encoding="UTF-8" includeantruntime="false">
+			<classpath refid="main_java_path" />
+			<src path="${ebean_src}"/>
+			<src path="${eutil_src}"/>
+			<src path="${eservice_src}"/>
+			<src path="${src}"/>
+			
+			<compilerarg line="-XDignore.symbol.file"/>
+		</javac>
+	</target>
+	
+	<target name="war" depends="compile">
+		<war destfile="${war_file_path}/${war_file_name}" webxml="${webContent_path}/WEB-INF/web.xml" >
+			<fileset dir="${webContent_path}">
+				<include name="**/*.*" />
+				<exclude name="**/*.class" />
+				<exclude name="**/*.jar" />
+			</fileset>
+			<lib dir="${webContent_path}/WEB-INF/lib" />
+			<classes dir="${basedir}/${relative_dest}/WEB-INF/classes" />
+		</war>
+	</target>
+	
+	<target name="build" depends="compile">
+		<copy todir="${basedir}/${relative_dest}">
+			<fileset dir="${webContent_path}" >
+				<exclude name="WEB-INF" />
+			</fileset>
+		</copy>
+	</target>
+</project>

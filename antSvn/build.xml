@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<project name="main" default="checkout" basedir="." >
+	<property file="all.properties" />
+	<path id="main_java_path" >
+		<fileset dir="${webContent_path}/WEB-INF/lib">
+			<include name="**/*.jar"/>
+			<exclude name="**/hibernate-validator-annotation-processor-5.2.0.CR1.jar" />
+		</fileset>
+		<fileset dir="${tomcat_lib}">
+			<include name="**/*.jar"/>
+		</fileset>
+		<fileset dir="${local_lib}">
+			<include name="**/*.jar"/>
+		</fileset>
+		<fileset dir="C:/Java/jdk1.7.0_79/jre/lib">
+			<include name="**/rt.jar"/>
+		</fileset>
+		<fileset dir="${basedir}/ant_svn_lib">
+			<include name="**/*.jar"/>
+		</fileset>
+	</path>
+	 <typedef resource="org/tigris/subversion/svnant/svnantlib.xml" />  
+	<target name="init">
+		<mkdir dir="${dest}" />
+	</target>
+	<target name="clean">
+		<delete dir="${dest}" />
+		<ant target="init" />
+	</target>
+	<target name="checkout" >
+		<delete dir="src" />
+		<svn username="nanshouxiao" password="123456">
+			<checkout url="svn://192.168.1.48/wanglei_dev/trunk/05_Code/pms_admin/src/com" destPath="src" revision="HEAD" />
+		</svn>
+		
+	</target>
+	
+
+</project>
